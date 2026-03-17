@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASP610S – Test 1 Study Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --card: #1c2128;
+    --border: #30363d;
+    --accent: #f0a500;
+    --accent2: #e05c5c;
+    --accent3: #5cb8e0;
+    --accent4: #6be05c;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --heading: #Playfair Display;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  /* HEADER */
+  .hero {
+    background: linear-gradient(135deg, #0d1117 0%, #1a1020 50%, #0d1117 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 50% 50%, rgba(240,165,0,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(240,165,0,0.15);
+    border: 1px solid rgba(240,165,0,0.4);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 1.2rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(135deg, #fff 0%, #f0a500 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+  .exam-info {
+    display: inline-flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+  }
+  .exam-info span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .exam-info strong { color: var(--text); }
+
+  /* NAV */
+  .toc {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0.8rem 2rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+  .toc a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+  .toc a:hover { color: var(--accent); border-color: rgba(240,165,0,0.3); background: rgba(240,165,0,0.05); }
+
+  /* MAIN */
+  main { max-width: 960px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+
+  /* SECTIONS */
+  section { margin-bottom: 3.5rem; scroll-margin-top: 60px; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.8rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .icon-yellow { background: rgba(240,165,0,0.15); }
+  .icon-red { background: rgba(224,92,92,0.15); }
+  .icon-blue { background: rgba(92,184,224,0.15); }
+  .icon-green { background: rgba(107,224,92,0.15); }
+  .icon-purple { background: rgba(180,92,224,0.15); }
+
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1rem;
+  }
+  .card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+  .card h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 1rem;
+    margin-bottom: 0.4rem;
+  }
+  .card p { color: #c9d1d9; margin-bottom: 0.5rem; }
+  .card ul { padding-left: 1.4rem; }
+  .card li { color: #c9d1d9; margin-bottom: 0.25rem; }
+
+  /* DEFINITION BOX */
+  .def {
+    border-left: 3px solid var(--accent);
+    padding: 0.8rem 1.2rem;
+    background: rgba(240,165,0,0.04);
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 0.8rem;
+  }
+  .def-term {
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 0.95rem;
+  }
+  .def-desc { color: #c9d1d9; font-size: 0.9rem; margin-top: 0.2rem; }
+
+  .def.blue { border-left-color: var(--accent3); background: rgba(92,184,224,0.04); }
+  .def.blue .def-term { color: var(--accent3); }
+  .def.red { border-left-color: var(--accent2); background: rgba(224,92,92,0.04); }
+  .def.red .def-term { color: var(--accent2); }
+  .def.green { border-left-color: var(--accent4); background: rgba(107,224,92,0.04); }
+  .def.green .def-term { color: var(--accent4); }
+
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  @media (max-width: 680px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+
+  /* FORMULA BOX */
+  .formula-box {
+    background: #0d1117;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: #a5d6ff;
+    overflow-x: auto;
+  }
+  .formula-label {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+
+  /* ALERT / NB */
+  .nb {
+    background: rgba(224,92,92,0.08);
+    border: 1px solid rgba(224,92,92,0.3);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+  }
+  .nb-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .nb-text { color: #f5a8a8; font-size: 0.9rem; }
+  .nb-text strong { color: var(--accent2); }
+
+  /* TABLE */
+  .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    margin: 0.8rem 0;
+  }
+  .styled-table th {
+    background: rgba(240,165,0,0.1);
+    color: var(--accent);
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    padding: 0.6rem 0.8rem;
+    border-bottom: 2px solid rgba(240,165,0,0.3);
+    text-align: left;
+  }
+  .styled-table td {
+    padding: 0.55rem 0.8rem;
+    border-bottom: 1px solid var(--border);
+    color: #c9d1d9;
+  }
+  .styled-table tr:last-child td { border-bottom: none; }
+  .styled-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* COMPARISON PILL */
+  .pill {
+    display: inline-block;
+    padding: 0.15rem 0.6rem;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .pill-yellow { background: rgba(240,165,0,0.2); color: var(--accent); }
+  .pill-blue { background: rgba(92,184,224,0.2); color: var(--accent3); }
+  .pill-red { background: rgba(224,92,92,0.2); color: var(--accent2); }
+  .pill-green { background: rgba(107,224,92,0.2); color: var(--accent4); }
+
+  /* SKEW VISUAL */
+  .skew-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 0.8rem 0;
+  }
+  .skew-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .skew-diagram { font-size: 2rem; margin-bottom: 0.4rem; }
+  .skew-label { font-weight: 700; font-size: 0.9rem; color: var(--text); margin-bottom: 0.3rem; }
+  .skew-formula { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--accent); }
+
+  /* EMPIRICAL RULE */
+  .emp-rule {
+    display: flex;
+    gap: 0.8rem;
+    margin: 0.8rem 0;
+    flex-wrap: wrap;
+  }
+  .emp-block {
+    flex: 1;
+    min-width: 140px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .emp-percent {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .emp-sigma {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent3);
+    margin-top: 0.2rem;
+  }
+  .emp-desc { font-size: 0.78rem; color: var(--muted); margin-top: 0.3rem; }
+
+  /* STEPS */
+  .steps { counter-reset: step; }
+  .step {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    align-items: flex-start;
+  }
+  .step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(240,165,0,0.15);
+    border: 1px solid rgba(240,165,0,0.4);
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-content { color: #c9d1d9; font-size: 0.9rem; padding-top: 0.3rem; }
+  .step-content strong { color: var(--text); }
+
+  /* QUICK REFERENCE */
+  .qr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.8rem;
+  }
+  .qr-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+  }
+  .qr-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+  .qr-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88rem;
+    color: var(--accent);
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">ASP610S · Test 1</div>
+  <h1>Statistics Study Guide</h1>
+  <p class="hero-sub">Applied Statistics and Probability for IT — Everything except Probability</p>
+  <div class="exam-info">
+    <span>🕐 <strong>17:15 – 18:30</strong></span>
+    <span>📍 <strong>AUD South · AUD North · AUD 1 · Science &amp; Tech A · Health &amp; Applied AUD</strong></span>
+    <span>⚠️ <strong>No Probability</strong></span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="toc">
+  <a href="#intro">Introduction</a>
+  <a href="#data-types">Data Types</a>
+  <a href="#data-presentation">Data Presentation</a>
+  <a href="#central-tendency">Central Tendency</a>
+  <a href="#variation">Variation</a>
+  <a href="#shape">Shape & Distribution</a>
+  <a href="#advanced">Advanced Topics</a>
+  <a href="#key-defs">Key Definitions</a>
+</nav>
+
+<main>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- SECTION 1: INTRODUCTION -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="intro">
+    <div class="section-header">
+      <div class="section-icon icon-yellow">📊</div>
+      <div>
+        <div class="section-num">UNIT 1 · INTRODUCTION</div>
+        <h2>What is Statistics?</h2>
+      </div>
+    </div>
+
+    <div class="def">
+      <div class="def-term">Statistics</div>
+      <div class="def-desc">Methods used to intelligently <strong>collect, summarize, analyze, present,</strong> and <strong>interpret data</strong> for the purposes of decision making.</div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Descriptive Statistics</h3>
+        <p>Statistical methods used to <strong>organize, summarize, and present</strong> data in a convenient and informative way.</p>
+        <h4>Activities</h4>
+        <ul>
+          <li>Collecting data (surveys)</li>
+          <li>Presenting data (tables, graphs)</li>
+          <li>Summarizing data (sample mean, etc.)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Inferential Statistics</h3>
+        <p>The process of making an <strong>estimate, prediction, or decision about a population</strong> based on sample data.</p>
+        <h4>Activities</h4>
+        <ul>
+          <li>Estimation (estimating population mean)</li>
+          <li>Hypothesis testing</li>
+          <li>Making decisions / forecasts</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:1rem">
+      <h3>Key Vocabulary</h3>
+      <div class="grid-2">
+        <div>
+          <div class="def">
+            <div class="def-term">Population (N)</div>
+            <div class="def-desc">The set of ALL elements of interest in a particular study.</div>
+          </div>
+          <div class="def">
+            <div class="def-term">Sample (n)</div>
+            <div class="def-desc">A subset (portion) of the population.</div>
+          </div>
+          <div class="def">
+            <div class="def-term">Census</div>
+            <div class="def-desc">Collecting data from the entire population. Often impossible, expensive, or time-consuming.</div>
+          </div>
+        </div>
+        <div>
+          <div class="def blue">
+            <div class="def-term">Parameter</div>
+            <div class="def-desc">A numerical measure that describes a characteristic of a <strong>population</strong>. Value is almost always <em>unknown</em> — must be estimated.</div>
+          </div>
+          <div class="def blue">
+            <div class="def-term">Statistic</div>
+            <div class="def-desc">A numerical measure that describes a characteristic of a <strong>sample</strong>. Used as an estimate of the unknown parameter.</div>
+          </div>
+          <div class="def blue">
+            <div class="def-term">Simple Random Sample</div>
+            <div class="def-desc">Each element of the population has an <strong>equal chance</strong> of being selected.</div>
+          </div>
+        </div>
+      </div>
+      <div class="nb">
+        <div class="nb-icon">💡</div>
+        <div class="nb-text"><strong>Remember:</strong> Parameter → Population. Statistic → Sample. The sample mean <em>estimates</em> the population mean. All statistics are estimates.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- SECTION 2: DATA TYPES -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="data-types">
+    <div class="section-header">
+      <div class="section-icon icon-blue">🗂️</div>
+      <div>
+        <div class="section-num">UNIT 1 · CLASSIFICATION</div>
+        <h2>Types of Data &amp; Variables</h2>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Qualitative (Categorical) Data</h3>
+        <p>Labels or names used to identify an attribute of each element. Often referred to as categorical data.</p>
+        <ul>
+          <li>Uses nominal or ordinal scale</li>
+          <li>Can be nonnumeric or numeric</li>
+          <li>Display with <strong>bar charts</strong> or <strong>pie charts</strong></li>
+        </ul>
+        <h4>Examples</h4>
+        <p>Marital status, eye colour, preferred banking mode, job stress level (very/somewhat/none)</p>
+      </div>
+      <div class="card">
+        <h3>Quantitative (Numerical) Data</h3>
+        <p>Numeric values that represent measured or counted characteristics.</p>
+        <ul>
+          <li><strong>Discrete:</strong> Counted items (number of children, defects per hour)</li>
+          <li><strong>Continuous:</strong> Measured characteristics (weight, voltage, temperature)</li>
+          <li>Display with <strong>histograms</strong></li>
+        </ul>
+        <h4>Examples</h4>
+        <p>Daily max temperature, vehicles owned, income, stock price</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:1rem">
+      <h3>Levels of Measurement</h3>
+      <table class="styled-table">
+        <tr><th>Level</th><th>Description</th><th>Example</th><th>Operations</th></tr>
+        <tr><td><span class="pill pill-yellow">Nominal</span></td><td>Categories with no order</td><td>Gender, eye colour</td><td>Count, mode</td></tr>
+        <tr><td><span class="pill pill-blue">Ordinal</span></td><td>Categories with meaningful order, but unequal gaps</td><td>Stress level (low/medium/high)</td><td>Count, mode, median</td></tr>
+        <tr><td><span class="pill pill-green">Interval</span></td><td>Ordered, equal gaps, but no true zero</td><td>Temperature in °C, year</td><td>+/−, mean</td></tr>
+        <tr><td><span class="pill pill-red">Ratio</span></td><td>Ordered, equal gaps, true zero exists</td><td>Weight, height, income, age</td><td>All operations, ratios meaningful</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- SECTION 3: DATA PRESENTATION -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="data-presentation">
+    <div class="section-header">
+      <div class="section-icon icon-green">📈</div>
+      <div>
+        <div class="section-num">UNIT 1 PART 2 · DATA PRESENTATION</div>
+        <h2>Displaying Data</h2>
+      </div>
+    </div>
+
+    <!-- QUALITATIVE -->
+    <div class="card">
+      <h3>Qualitative Data: Frequency Distribution</h3>
+      <p>A <strong>frequency distribution</strong> is a summary table listing each category and its count (frequency).</p>
+      <div class="formula-label">Key Calculations</div>
+      <div class="formula-box">
+Relative Frequency = Frequency / Total n
+Percentage          = Relative Frequency × 100
+      </div>
+      <h4>Example – Banking Survey (n = 800)</h4>
+      <table class="styled-table">
+        <tr><th>Mode of Banking</th><th>Frequency</th><th>Relative Freq.</th><th>Percent</th></tr>
+        <tr><td>ATM</td><td>128</td><td>0.16</td><td>16%</td></tr>
+        <tr><td>Tele-banking</td><td>16</td><td>0.02</td><td>2%</td></tr>
+        <tr><td>Drive-in at branch</td><td>136</td><td>0.17</td><td>17%</td></tr>
+        <tr><td>In-person at branch</td><td>328</td><td>0.41</td><td>41%</td></tr>
+        <tr><td>Internet banking</td><td>192</td><td>0.24</td><td>24%</td></tr>
+      </table>
+    </div>
+
+    <!-- QUANTITATIVE -->
+    <div class="card" style="margin-top:1rem">
+      <h3>Quantitative Data: Building a Frequency Distribution</h3>
+      <p>Steps to construct a frequency distribution for grouped numerical data:</p>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><strong>Find the Range</strong> — Range = Max − Min</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><strong>Choose number of classes (k)</strong> — Use Sturges' Rule as a guide: k ≈ 1 + 3.322 × log₁₀(n)</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><strong>Compute class width (c)</strong> — c = Range ÷ k (round up)</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content"><strong>Determine class limits</strong> — Start at or below the minimum value</div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-content"><strong>Count observations</strong> — Tally data into each class and fill in the table</div></div>
+      </div>
+      <h4>Example (n = 20 temperature readings)</h4>
+      <table class="styled-table">
+        <tr><th>Class</th><th>Freq (f)</th><th>Relative Freq</th><th>Percent</th><th>Cum. Freq</th><th>Cum. %</th></tr>
+        <tr><td>10 – &lt; 20</td><td>3</td><td>0.15</td><td>15</td><td>3</td><td>15</td></tr>
+        <tr><td>20 – &lt; 30</td><td>6</td><td>0.30</td><td>30</td><td>9</td><td>45</td></tr>
+        <tr><td>30 – &lt; 40</td><td>5</td><td>0.25</td><td>25</td><td>14</td><td>70</td></tr>
+        <tr><td>40 – &lt; 50</td><td>4</td><td>0.20</td><td>20</td><td>18</td><td>90</td></tr>
+        <tr><td>50 – &lt; 60</td><td>2</td><td>0.10</td><td>10</td><td>20</td><td>100</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>20</strong></td><td><strong>1.00</strong></td><td><strong>100</strong></td><td></td><td></td></tr>
+      </table>
+    </div>
+
+    <!-- CHARTS -->
+    <div class="grid-2" style="margin-top:1rem">
+      <div class="card">
+        <h3>Histogram</h3>
+        <p>A bar chart for quantitative data. Bars are adjacent (no gaps) and represent class intervals on the x-axis.</p>
+        <h4>Use for:</h4>
+        <ul>
+          <li>Visualizing distribution shape</li>
+          <li>Identifying skewness, symmetry</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Frequency Polygon</h3>
+        <p>Line graph connecting the <strong>class midpoints</strong> at their frequencies. Midpoint = (Lower + Upper) / 2.</p>
+        <h4>Midpoints for temp example:</h4>
+        <p>15, 25, 35, 45, 55</p>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:1rem">
+      <div class="card">
+        <h3>Ogive (Cumulative % Curve)</h3>
+        <p>Plots the <strong>upper class boundary</strong> against the <strong>cumulative percentage</strong>. Also called the "Less Than Ogive".</p>
+        <ul>
+          <li>Starts at (lower boundary, 0%)</li>
+          <li>Ends at (upper boundary of last class, 100%)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Stem-and-Leaf Display</h3>
+        <p>Splits each data value into a <strong>stem</strong> (leading digit/s) and a <strong>leaf</strong> (last digit). Shows the distribution shape while preserving actual values.</p>
+        <div class="formula-box">Example:  12 → Stem: 1 | Leaf: 2
+         35 → Stem: 3 | Leaf: 5</div>
+      </div>
+    </div>
+
+    <!-- HISTOGRAM SHAPES -->
+    <div class="card" style="margin-top:1rem">
+      <h3>Shapes of Histograms</h3>
+      <div class="skew-grid">
+        <div class="skew-item">
+          <div class="skew-diagram">🔔</div>
+          <div class="skew-label">Symmetric</div>
+          <div class="skew-formula">Mean = Median = Mode</div>
+        </div>
+        <div class="skew-item">
+          <div class="skew-diagram">📐</div>
+          <div class="skew-label">Right-Skewed (Positive)</div>
+          <div class="skew-formula">Mode &lt; Median &lt; Mean</div>
+        </div>
+        <div class="skew-item">
+          <div class="skew-diagram">📐</div>
+          <div class="skew-label">Left-Skewed (Negative)</div>
+          <div class="skew-formula">Mean &lt; Median &lt; Mode</div>
+        </div>
+      </div>
+      <div class="nb"><div class="nb-icon">⚡</div><div class="nb-text"><strong>Uniform / Rectangular:</strong> All classes have the same frequency. No skew.</div></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- SECTION 4: CENTRAL TENDENCY -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="central-tendency">
+    <div class="section-header">
+      <div class="section-icon icon-yellow">🎯</div>
+      <div>
+        <div class="section-num">DESCRIPTIVE STATISTICS</div>
+        <h2>Measures of Central Tendency</h2>
+      </div>
+    </div>
+
+    <div class="nb">
+      <div class="nb-icon">📌</div>
+      <div class="nb-text"><strong>Central tendency</strong> is the extent to which all data values group around a central value. Three main measures: Mean, Median, Mode.</div>
+    </div>
+
+    <!-- MEAN -->
+    <div class="card" style="margin-top:1rem">
+      <h3>Mean (Arithmetic Mean)</h3>
+      <p>The most common measure. Sum of all values divided by number of values.</p>
+      <div class="grid-2">
+        <div>
+          <div class="formula-label">Sample Mean</div>
+          <div class="formula-box">x̄ = (Σxᵢ) / n
+where n = sample size</div>
+        </div>
+        <div>
+          <div class="formula-label">Population Mean</div>
+          <div class="formula-box">μ = (Σxᵢ) / N
+where N = population size</div>
+        </div>
+      </div>
+      <h4>Properties</h4>
+      <ul>
+        <li><strong>Unique</strong> — only one mean per dataset</li>
+        <li><strong>Affected by outliers/extreme values</strong> — use median instead if data is skewed</li>
+        <li>Uses all values in the calculation</li>
+      </ul>
+      <h4>Example</h4>
+      <p>Data: 2, 3, 5, 1, 4, 3, 2, 4 → Mean = 24/8 = <strong>3</strong></p>
+    </div>
+
+    <!-- MEDIAN -->
+    <div class="card" style="margin-top:1rem">
+      <h3>Median</h3>
+      <p>The middle value when data is arranged in ascending order. Splits the data 50/50.</p>
+      <div class="formula-label">Median Position Formula</div>
+      <div class="formula-box">Position = (n + 1) / 2
+If n is ODD  → median is the middle value
+If n is EVEN → median is the average of the two middle values</div>
+      <h4>Properties</h4>
+      <ul>
+        <li><strong>Not affected by extreme values (outliers)</strong></li>
+        <li>Unique — one median per dataset</li>
+        <li>Preferred over the mean for skewed data (e.g. home prices)</li>
+      </ul>
+      <h4>Example</h4>
+      <p>Ordered data: 12, 23, 24, <strong>27</strong>, 34, 38, 40, 40, 42 → Position = 5 → Median = <strong>34</strong></p>
+    </div>
+
+    <!-- MODE -->
+    <div class="card" style="margin-top:1rem">
+      <h3>Mode</h3>
+      <p>The most frequently occurring value in a dataset.</p>
+      <h4>Properties</h4>
+      <ul>
+        <li><strong>Not affected by extreme values</strong></li>
+        <li>Can be used for qualitative OR quantitative data</li>
+        <li>There may be <strong>no mode</strong> (all values unique)</li>
+        <li>There may be <strong>multiple modes</strong> (bimodal, multimodal)</li>
+      </ul>
+      <h4>Example</h4>
+      <p>7, 11, 14.25, 15, 15, 15.5, 19, 19, 19, <strong>19</strong>, 19, 21 → Mode = <strong>19</strong> (occurs 4 times)</p>
+    </div>
+
+    <!-- COMPARISON -->
+    <div class="card" style="margin-top:1rem">
+      <h3>Which measure to use?</h3>
+      <table class="styled-table">
+        <tr><th>Situation</th><th>Use</th><th>Reason</th></tr>
+        <tr><td>Normal/symmetric distribution</td><td><span class="pill pill-yellow">Mean</span></td><td>Uses all data, most informative</td></tr>
+        <tr><td>Skewed data or outliers present</td><td><span class="pill pill-blue">Median</span></td><td>Not distorted by extreme values</td></tr>
+        <tr><td>Categorical data / most common value</td><td><span class="pill pill-green">Mode</span></td><td>Only measure for qualitative data</td></tr>
+      </table>
+      <h4>Classic Example — House Prices</h4>
+      <p>Prices: $2,000,000 / $500,000 / $300,000 / $100,000 / $100,000</p>
+      <div class="formula-box">Mean   = $3,000,000 / 5 = $600,000  ← distorted by the outlier
+Median = $300,000                 ← more representative
+Mode   = $100,000                 ← most frequent</div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- SECTION 5: VARIATION -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="variation">
+    <div class="section-header">
+      <div class="section-icon icon-red">📏</div>
+      <div>
+        <div class="section-num">DESCRIPTIVE STATISTICS</div>
+        <h2>Measures of Variation (Dispersion)</h2>
+      </div>
+    </div>
+
+    <div class="nb">
+      <div class="nb-icon">📌</div>
+      <div class="nb-text"><strong>Variation</strong> is the amount of dispersion or scattering of values. Two datasets can have the same mean but very different spreads.</div>
+    </div>
+
+    <!-- RANGE -->
+    <div class="card" style="margin-top:1rem">
+      <h3>Range</h3>
+      <p>Simplest measure of variation.</p>
+      <div class="formula-box">Range = X_largest − X_smallest</div>
+      <h4>Disadvantages</h4>
+      <ul>
+        <li>Ignores how data are distributed in between</li>
+        <li>Sensitive to outliers — one extreme value changes the range dramatically</li>
+      </ul>
+    </div>
+
+    <!-- QUARTILES & IQR -->
+    <div class="card" style="margin-top:1rem">
+      <h3>Quartiles &amp; Interquartile Range (IQR)</h3>
+      <p>Quartiles split ranked data into 4 equal segments of 25% each.</p>
+      <div class="grid-2">
+        <div>
+          <div class="formula-label">Quartile Positions (ranked data)</div>
+          <div class="formula-box">Q1 position = 0.25 × (n + 1)
+Q2 position = 0.50 × (n + 1)  ← Median
+Q3 position = 0.75 × (n + 1)</div>
+        </div>
+        <div>
+          <div class="formula-label">IQR Formula</div>
+          <div class="formula-box">IQR = Q3 − Q1
+
+Eliminates top and bottom 25%,
+measures middle 50% spread.</div>
+        </div>
+      </div>
+      <h4>Example</h4>
+      <p>Ranked data: 11, 12, 13, 16, 16, 17, 18, 21, 22 (n = 9)</p>
+      <div class="formula-box">Q1 position = 0.25 × 10 = 2.5 → average of 2nd & 3rd = (12+13)/2 = 12.5
+Q3 position = 0.75 × 10 = 7.5 → average of 7th & 8th = (18+21)/2 = 19.5
+IQR = 19.5 − 12.5 = 7</div>
+    </div>
+
+    <!-- VARIANCE & SD -->
+    <div class="card" style="margin-top:1rem">
+      <h3>Variance &amp; Standard Deviation</h3>
+      <p>The most commonly used measures. Each value is used in the calculation; values far from the mean receive extra weight because deviations are squared.</p>
+      <div class="grid-2">
+        <div>
+          <div class="formula-label">Sample Variance</div>
+          <div class="formula-box">s² = Σ(xᵢ − x̄)² / (n − 1)
+Note: divide by (n−1), not n</div>
+          <div class="formula-label" style="margin-top:0.8rem">Sample Standard Deviation</div>
+          <div class="formula-box">s = √s²</div>
+        </div>
+        <div>
+          <div class="formula-label">Population Variance</div>
+          <div class="formula-box">σ² = Σ(xᵢ − μ)² / N
+Note: divide by N</div>
+          <div class="formula-label" style="margin-top:0.8rem">Population Standard Deviation</div>
+          <div class="formula-box">σ = √σ²</div>
+        </div>
+      </div>
+      <h4>Steps to calculate variance</h4>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content">Calculate the mean (x̄)</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content">Subtract the mean from each value: (xᵢ − x̄)</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content">Square each deviation: (xᵢ − x̄)²</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content">Sum all squared deviations: Σ(xᵢ − x̄)²</div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-content">Divide by (n − 1) for sample, N for population</div></div>
+      </div>
+    </div>
+
+    <!-- CV -->
+    <div class="card" style="margin-top:1rem">
+      <h3>Coefficient of Variation (CV)</h3>
+      <p>Measures relative variation — always expressed as a <strong>percentage</strong>. Useful to compare datasets measured in different units or with different means.</p>
+      <div class="formula-box">CV = (s / x̄) × 100%</div>
+      <h4>Example — Comparing Two Stocks</h4>
+      <table class="styled-table">
+        <tr><th>Stock</th><th>Mean Price</th><th>Std Dev</th><th>CV</th><th>Conclusion</th></tr>
+        <tr><td>Stock A</td><td>$50</td><td>$5</td><td>10%</td><td>More variable relative to price</td></tr>
+        <tr><td>Stock B</td><td>$100</td><td>$5</td><td>5%</td><td>Less variable relative to price</td></tr>
+      </table>
+      <p style="margin-top:0.6rem; color:var(--muted); font-size:0.85rem">Both stocks have the same standard deviation ($5), but Stock B is less variable relative to its price.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- SECTION 6: SHAPE & DISTRIBUTION -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="shape">
+    <div class="section-header">
+      <div class="section-icon icon-purple">🔔</div>
+      <div>
+        <div class="section-num">DESCRIPTIVE STATISTICS</div>
+        <h2>Shape &amp; Distribution Rules</h2>
+      </div>
+    </div>
+
+    <!-- EMPIRICAL RULE -->
+    <div class="card">
+      <h3>The Empirical Rule (Bell-Shaped / Normal Distribution)</h3>
+      <p>Applies when data has a <strong>bell-shaped (symmetric) distribution</strong>.</p>
+      <div class="emp-rule">
+        <div class="emp-block">
+          <div class="emp-percent">68%</div>
+          <div class="emp-sigma">μ ± 1σ</div>
+          <div class="emp-desc">of values fall within 1 standard deviation of the mean</div>
+        </div>
+        <div class="emp-block">
+          <div class="emp-percent">95%</div>
+          <div class="emp-sigma">μ ± 2σ</div>
+          <div class="emp-desc">of values fall within 2 standard deviations of the mean</div>
+        </div>
+        <div class="emp-block">
+          <div class="emp-percent">99.7%</div>
+          <div class="emp-sigma">μ ± 3σ</div>
+          <div class="emp-desc">of values fall within 3 standard deviations of the mean</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHEBYSHEV -->
+    <div class="card" style="margin-top:1rem">
+      <h3>Chebyshev's Theorem</h3>
+      <p>Works for <strong>any distribution</strong> (regardless of shape). For k &gt; 1:</p>
+      <div class="formula-box">At least  (1 − 1/k²) × 100%  of values fall within  k  standard deviations of the mean</div>
+      <table class="styled-table" style="margin-top:0.8rem">
+        <tr><th>k value</th><th>Interval</th><th>At least % of data</th></tr>
+        <tr><td>k = 1.5</td><td>μ ± 1.5σ</td><td>1 − 1/1.5² = <strong>55.6%</strong></td></tr>
+        <tr><td>k = 2</td><td>μ ± 2σ</td><td>1 − 1/4 = <strong>75%</strong></td></tr>
+        <tr><td>k = 3</td><td>μ ± 3σ</td><td>1 − 1/9 = <strong>89%</strong></td></tr>
+      </table>
+      <div class="nb" style="margin-top:0.8rem">
+        <div class="nb-icon">⚡</div>
+        <div class="nb-text"><strong>Key difference:</strong> Empirical Rule = only for bell-shaped data (exact percentages). Chebyshev = any distribution (minimum percentages).</div>
+      </div>
+    </div>
+
+    <!-- SKEWNESS -->
+    <div class="card" style="margin-top:1rem">
+      <h3>Skewness — Shape of a Distribution</h3>
+      <table class="styled-table">
+        <tr><th>Shape</th><th>Relationship</th><th>Tail Direction</th></tr>
+        <tr><td><span class="pill pill-yellow">Symmetric</span></td><td>Mean = Median = Mode</td><td>No tail — balanced</td></tr>
+        <tr><td><span class="pill pill-red">Right-Skewed (+)</span></td><td>Mode &lt; Median &lt; Mean</td><td>Tail extends to the RIGHT</td></tr>
+        <tr><td><span class="pill pill-blue">Left-Skewed (−)</span></td><td>Mean &lt; Median &lt; Mode</td><td>Tail extends to the LEFT</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- SECTION 7: ADVANCED TOPICS -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="advanced">
+    <div class="section-header">
+      <div class="section-icon icon-blue">🔬</div>
+      <div>
+        <div class="section-num">UNIT 2 · ADVANCED</div>
+        <h2>Advanced Topics</h2>
+      </div>
+    </div>
+
+    <!-- GEOMETRIC MEAN -->
+    <div class="card">
+      <h3>Geometric Mean</h3>
+      <p>Used to measure the <strong>rate of change of a variable over time</strong>, especially investment returns. More accurate than arithmetic mean for growth rates.</p>
+      <div class="formula-box">Geometric Mean Rate of Return:
+xg = [(1+x₁)(1+x₂)...(1+xn)]^(1/n) − 1</div>
+      <h4>Example</h4>
+      <p>Investment: $100,000 → $150,000 (year 1, +50%) → $180,000 (year 2, +20%)</p>
+      <div class="formula-box">Arithmetic mean = (50% + 20%) / 2 = 35%  ← MISLEADING
+Geometric mean  = √(1.50 × 1.20) − 1 = √1.80 − 1 ≈ 34.16%  ← ACCURATE</div>
+    </div>
+
+    <!-- GROUPED DATA -->
+    <div class="card" style="margin-top:1rem">
+      <h3>Weighted Mean / Grouped Data Approximations</h3>
+      <p>When data is already grouped into K classes (frequencies f₁, f₂,… and midpoints m₁, m₂,…):</p>
+      <div class="grid-2">
+        <div>
+          <div class="formula-label">Mean from Grouped Data</div>
+          <div class="formula-box">x̄ = Σ(fᵢ × mᵢ) / n
+where n = Σfᵢ</div>
+        </div>
+        <div>
+          <div class="formula-label">Variance from Grouped Data</div>
+          <div class="formula-box">s² = Σfᵢ(mᵢ − x̄)² / (n − 1)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COVARIANCE & CORRELATION -->
+    <div class="card" style="margin-top:1rem">
+      <h3>Covariance &amp; Correlation Coefficient</h3>
+      <div class="grid-2">
+        <div>
+          <div class="def green">
+            <div class="def-term">Covariance</div>
+            <div class="def-desc">Measures the <strong>strength and direction</strong> of the linear relationship between two variables. No standardized scale.</div>
+          </div>
+          <div class="formula-box">Cov(X,Y) > 0 → move same direction
+Cov(X,Y) < 0 → move opposite directions
+Cov(X,Y) = 0 → independent</div>
+        </div>
+        <div>
+          <div class="def blue">
+            <div class="def-term">Correlation Coefficient (r)</div>
+            <div class="def-desc">Measures the <strong>relative strength</strong> of the linear relationship. Always between −1 and +1.</div>
+          </div>
+          <div class="formula-box">r = −1 → perfect negative linear
+r =  0 → no linear relationship
+r = +1 → perfect positive linear</div>
+        </div>
+      </div>
+      <div class="nb" style="margin-top:0.8rem">
+        <div class="nb-icon">💡</div>
+        <div class="nb-text">The correlation coefficient is <strong>unit free</strong> — it doesn't depend on the units of measurement. Covariance is NOT unit free.</div>
+      </div>
+    </div>
+
+    <!-- BOX PLOT -->
+    <div class="card" style="margin-top:1rem">
+      <h3>Five-Number Summary &amp; Box-and-Whisker Plot</h3>
+      <div class="formula-box">Five-Number Summary:
+  Minimum  |  Q1  |  Median (Q2)  |  Q3  |  Maximum
+
+IQR = Q3 − Q1
+Lower fence = Q1 − 1.5 × IQR
+Upper fence = Q3 + 1.5 × IQR
+Values outside fences are OUTLIERS</div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- SECTION 8: KEY DEFINITIONS -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="key-defs">
+    <div class="section-header">
+      <div class="section-icon icon-yellow">📝</div>
+      <div>
+        <div class="section-num">NB!! KNOW THESE</div>
+        <h2>Key Concepts &amp; Definitions</h2>
+      </div>
+    </div>
+
+    <div class="nb">
+      <div class="nb-icon">🚨</div>
+      <div class="nb-text"><strong>Your lecturer said: NB!! Know the concepts and definitions.</strong> These are the most likely definition questions. Know each term cold.</div>
+    </div>
+
+    <div style="margin-top:1.2rem">
+      <div class="def"><div class="def-term">Data</div><div class="def-desc">Observed values (observations) on a variable. Raw data = data that has not been summarized or organized.</div></div>
+      <div class="def"><div class="def-term">Variable</div><div class="def-desc">A characteristic that changes or varies over time and/or for different individuals or objects under consideration.</div></div>
+      <div class="def blue"><div class="def-term">Discrete Variable</div><div class="def-desc">Can only take specific (countable) values. E.g. number of children, number of defects.</div></div>
+      <div class="def blue"><div class="def-term">Continuous Variable</div><div class="def-desc">Can take any value within a range (measured). E.g. weight, height, temperature.</div></div>
+      <div class="def green"><div class="def-term">Descriptive Measure</div><div class="def-desc">A single number used to describe a set of data. Includes measures of central tendency and measures of dispersion.</div></div>
+      <div class="def green"><div class="def-term">Central Tendency</div><div class="def-desc">The extent to which all data values group around a central value.</div></div>
+      <div class="def green"><div class="def-term">Variation / Dispersion</div><div class="def-desc">The amount of scattering or spread in the data values.</div></div>
+      <div class="def"><div class="def-term">Frequency Distribution</div><div class="def-desc">A summary table where data is grouped into class intervals, each with a corresponding frequency.</div></div>
+      <div class="def"><div class="def-term">Class Interval / Class Width (c)</div><div class="def-desc">The range of values in a single class. c = Range ÷ k. Classes have lower and upper class limits.</div></div>
+      <div class="def"><div class="def-term">Class Midpoint</div><div class="def-desc">The middle value of a class interval. Midpoint = (Lower limit + Upper limit) / 2. Used in frequency polygons and grouped data calculations.</div></div>
+      <div class="def blue"><div class="def-term">Relative Frequency</div><div class="def-desc">The proportion of observations in a class. = Frequency / Total n. All relative frequencies sum to 1.</div></div>
+      <div class="def blue"><div class="def-term">Ogive (Less Than Ogive)</div><div class="def-desc">A cumulative frequency graph. Plots upper class boundaries against cumulative percentages.</div></div>
+      <div class="def red"><div class="def-term">Outlier</div><div class="def-desc">An extreme value that is far from the rest of the data. Outliers distort the mean and range but not the median.</div></div>
+      <div class="def red"><div class="def-term">Skewness</div><div class="def-desc">A measure of asymmetry in a distribution. Positive skew = tail to right. Negative skew = tail to left.</div></div>
+      <div class="def green"><div class="def-term">IQR (Interquartile Range)</div><div class="def-desc">IQR = Q3 − Q1. Measures the spread of the middle 50% of the data. Resistant to outliers.</div></div>
+      <div class="def"><div class="def-term">Coefficient of Variation (CV)</div><div class="def-desc">CV = (s / x̄) × 100%. Measures relative variation as a percentage. Used to compare variability across different units or scales.</div></div>
+      <div class="def blue"><div class="def-term">Empirical Rule</div><div class="def-desc">For bell-shaped distributions: 68% within 1σ, 95% within 2σ, 99.7% within 3σ of the mean.</div></div>
+      <div class="def blue"><div class="def-term">Chebyshev's Theorem</div><div class="def-desc">For ANY distribution: at least (1 − 1/k²) of values fall within k standard deviations of the mean (k > 1).</div></div>
+      <div class="def red"><div class="def-term">Correlation Coefficient (r)</div><div class="def-desc">Measures the relative strength of the linear relationship between two variables. Ranges from −1 to +1. Unit free.</div></div>
+      <div class="def red"><div class="def-term">Covariance</div><div class="def-desc">Measures the strength and direction of the linear relationship between two variables. NOT unit free.</div></div>
+    </div>
+
+    <!-- QUICK REFERENCE -->
+    <div class="card" style="margin-top:2rem">
+      <h3>Quick Formula Reference</h3>
+      <div class="qr-grid">
+        <div class="qr-item"><div class="qr-title">Sample Mean</div><div class="qr-value">x̄ = Σxᵢ / n</div></div>
+        <div class="qr-item"><div class="qr-title">Median Position</div><div class="qr-value">(n + 1) / 2</div></div>
+        <div class="qr-item"><div class="qr-title">Range</div><div class="qr-value">X_max − X_min</div></div>
+        <div class="qr-item"><div class="qr-title">IQR</div><div class="qr-value">Q3 − Q1</div></div>
+        <div class="qr-item"><div class="qr-title">Q1 Position</div><div class="qr-value">0.25(n + 1)</div></div>
+        <div class="qr-item"><div class="qr-title">Q3 Position</div><div class="qr-value">0.75(n + 1)</div></div>
+        <div class="qr-item"><div class="qr-title">Sample Variance</div><div class="qr-value">Σ(xᵢ−x̄)² / (n−1)</div></div>
+        <div class="qr-item"><div class="qr-title">Std Deviation</div><div class="qr-value">s = √s²</div></div>
+        <div class="qr-item"><div class="qr-title">CV</div><div class="qr-value">(s / x̄) × 100%</div></div>
+        <div class="qr-item"><div class="qr-title">Relative Freq</div><div class="qr-value">f / n</div></div>
+        <div class="qr-item"><div class="qr-title">Class Width</div><div class="qr-value">Range / k</div></div>
+        <div class="qr-item"><div class="qr-title">Chebyshev</div><div class="qr-value">≥ (1 − 1/k²)×100%</div></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  ASP610S · Test 1 Study Guide · Generated from your course materials · Good luck! 🎯
+</footer>
+
+</body>
+</html>
